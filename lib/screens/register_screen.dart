@@ -69,9 +69,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF8EA7E9), Color(0xFFB6C3F2)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            colors: [Color(0xFF0D1B2A), Color(0xFF1B263B), Color(0xFF415A77)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
         child: GestureDetector(
@@ -80,28 +80,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: Container(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(28),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white.withOpacity(0.2)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
+                      color: Colors.black.withOpacity(0.5),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.person_add_alt_1, size: 80, color: Color(0xFF6D83F2)),
+                    const Icon(Icons.person_add_alt_1,
+                        size: 80, color: Color(0xFFB8C7FF)),
                     const SizedBox(height: 16),
                     Text(
                       'Create an Account',
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFF4A4A4A),
+                        color: Colors.white,
+                        letterSpacing: 1.2,
                       ),
                     ),
                     const SizedBox(height: 32),
@@ -109,13 +112,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     // Username
                     TextField(
                       controller: _usernameController,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: 'Username',
-                        prefixIcon: const Icon(Icons.person_outline),
+                        labelStyle: const TextStyle(color: Colors.white70),
+                        prefixIcon:
+                            const Icon(Icons.person_outline, color: Colors.white70),
                         filled: true,
-                        fillColor: Colors.grey[100],
+                        fillColor: Colors.white.withOpacity(0.1),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                              const BorderSide(color: Colors.white30, width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                              const BorderSide(color: Colors.blueAccent, width: 1.5),
                         ),
                       ),
                     ),
@@ -125,12 +138,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextField(
                       controller: _passwordController,
                       obscureText: _obscurePassword,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        prefixIcon: const Icon(Icons.lock_outline),
+                        labelStyle: const TextStyle(color: Colors.white70),
+                        prefixIcon:
+                            const Icon(Icons.lock_outline, color: Colors.white70),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.white70,
                           ),
                           onPressed: () {
                             setState(() {
@@ -139,9 +158,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                         filled: true,
-                        fillColor: Colors.grey[100],
+                        fillColor: Colors.white.withOpacity(0.1),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                              const BorderSide(color: Colors.white30, width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                              const BorderSide(color: Colors.blueAccent, width: 1.5),
                         ),
                       ),
                     ),
@@ -149,33 +175,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 28),
 
                     _isLoading
-                        ? const CircularProgressIndicator()
+                        ? const CircularProgressIndicator(color: Colors.white)
                         : SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: _register,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF6D83F2),
-                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                backgroundColor: const Color(0xFF5C7AEA),
+                                foregroundColor: Colors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                elevation: 3,
+                                shadowColor:
+                                    Colors.blueAccent.withOpacity(0.5),
+                                elevation: 8,
                               ),
                               child: const Text(
                                 'REGISTER',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.2,
+                                ),
                               ),
                             ),
                           ),
 
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 20),
 
                     TextButton(
                       onPressed: () => Navigator.pop(context),
                       child: const Text(
                         'Already have an account? Login',
-                        style: TextStyle(color: Color(0xFF6D83F2)),
+                        style: TextStyle(
+                          color: Color(0xFF9BB1FF),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
