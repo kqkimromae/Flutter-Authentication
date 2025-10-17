@@ -1,30 +1,26 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// test/widget_test.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:firstproject/main.dart';
+import 'package:firstproject/screens/login_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  // เปลี่ยนชื่อ test ให้อธิบายสิ่งที่เราจะทำ
+  testWidgets('App shows LoginScreen when not logged in', (WidgetTester tester) async {
+    
+    // 1. Build แอพของเรา โดยส่งค่า isLoggedIn เป็น false
+    //    เพื่อจำลองสถานการณ์ว่าผู้ใช้ยังไม่ได้ล็อกอิน
+    await tester.pumpWidget(const MyApp(isLoggedIn: false));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 2. ตรวจสอบว่าหน้าจอ LoginScreen แสดงผลอยู่จริง
+    //    โดยการหา Widget ที่มีอยู่เฉพาะในหน้า Login
+    expect(find.byType(LoginScreen), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // 3. ตรวจสอบให้ละเอียดขึ้นอีกนิด โดยหาข้อความ "Welcome Back!"
+    expect(find.text('Welcome Back!'), findsOneWidget);
+    
+    // 4. ตรวจสอบว่าไม่มีปุ่มบวก (+) ของแอปเก่าอยู่
+    expect(find.byIcon(Icons.add), findsNothing);
   });
 }
